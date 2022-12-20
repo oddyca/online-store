@@ -1,4 +1,4 @@
-import products from "../../../products.json";
+import { FETCHED_DATA } from "../../data/data";
 
 const CATEGORIES: string[] = []; // array of strings representing all found categories in the DB
 
@@ -6,8 +6,8 @@ interface allCategories { // interface (object) for counting all instances of ea
   [cat: string]: number
 }
 
-for (let i = 0; i < products["products"].length; i++) { // push a name of a category of each product found in the DB
-  CATEGORIES.push(products["products"][i]["category"])
+for (let i = 0; i < FETCHED_DATA["products"].length; i++) { // push a name of a category of each product found in the DB
+  CATEGORIES.push(FETCHED_DATA["products"][i]["category"])
 }
 
 let countCategories: allCategories = {} // create an object of type 'allCategories' interface
