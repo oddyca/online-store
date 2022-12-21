@@ -1,0 +1,14 @@
+li {
+    list-style-type: none;
+}
+
+.item-cart {
+    text-align: center;
+}
+
+.item-data {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
