@@ -1,12 +1,12 @@
 export class Route {
 
-  navPath: string;
+  path: string;
 
   constructor(path: string) {
-    this.navPath = path;
+    this.path = path;
   }
 
   createRoute() {
-    window.history.pushState({}, this.navPath, window.location.origin + this.navPath);
+    window.history.pushState({}, this.path, window.location.origin + this.path);
   }
 }
