@@ -10,12 +10,15 @@ export class ProductsList {
 
   render(): HTMLDivElement {
     const productsContainer = document.createElement('div');
+    productsContainer.classList.add('products-list')
 
     for (let i = 0; i < allProducts.length; i++) {
       const productCardLink = document.createElement('a');
       const productCard = document.createElement('div');
-      const id = FETCHED_DATA['products'][i]["id"]
+      const id = FETCHED_DATA['products'][i]["id"];
 
+      productCard.classList.add('product-card');
+      
       const productRoute = new Route(`/${id}`);
 
       productCard.innerText = FETCHED_DATA['products'][i]["title"];

@@ -4,11 +4,25 @@
   box-sizing: border-box;
 }
 
+#app {
+  padding: 0 32px 0 32px;
+}
+
+.app_main {
+  display: flex;
+  gap: 16px;
+}
+
+.filter_categories {
+  flex: 1;
+}
+
 .products-list {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  flex: 5;
 }
 
 .product-card {

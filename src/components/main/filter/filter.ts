@@ -26,6 +26,7 @@ export class CategoriesBlock {
 
   render(): HTMLDivElement {
     const elem = document.createElement('div'); 
+    elem.classList.add('filter_categories');
     for (let i = 0; i < this.categories.length; i++) {
       elem.innerText = `${elem.innerText}, ${this.categories[i]} = ${countCategories[this.categories[i]]}`
     }
