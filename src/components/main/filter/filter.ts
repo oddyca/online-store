@@ -25,12 +25,35 @@ export class CategoriesBlock {
   }
 
   render(): HTMLDivElement {
-    const elem = document.createElement('div'); 
-    elem.classList.add('filter_categories');
+    const categoriesBlock = document.createElement('div');
+    categoriesBlock.classList.add('filter_categories');
+    const categoriesWrapper = document.createElement('form');
+    const categoriesHeader = document.createElement('div');
+    categoriesHeader.classList.add('filter_categories-header');
+    categoriesHeader.innerText = 'Category';
+    categoriesBlock.append(categoriesHeader);
+    categoriesBlock.append(categoriesWrapper);
     for (let i = 0; i < this.categories.length; i++) {
-      elem.innerText = `${elem.innerText}, ${this.categories[i]} = ${countCategories[this.categories[i]]}`
+      const checkBoxLabel = document.createElement('label');
+      const checkBox = document.createElement('input');
+      const checkBoxWrapper = document.createElement('div');
+      const categoryCount = document.createElement('span');
+
+
+
+      checkBoxWrapper.classList.add('filter_categories-wrapepr');
+      checkBox.setAttribute('type', 'checkbox');
+      checkBox.setAttribute('name', 'category');
+      checkBoxLabel.innerText = `${this.categories[i]}`;
+      categoryCount.innerText = `${countCategories[this.categories[i]]}`;
+      categoryCount.classList.add('filter_categories_count')
+      
+      checkBoxWrapper.append(checkBox);
+      checkBoxWrapper.append(checkBoxLabel);
+      checkBoxWrapper.append(categoryCount);
+      categoriesWrapper.append(checkBoxWrapper);
     }
 
-    return elem;
+    return categoriesBlock;
   }
 }
