@@ -43,6 +43,18 @@
   color: grey;
 }
 
+.products {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
 .products-list {
   width: 100%;
   display: flex;
