@@ -1,5 +1,5 @@
 import "./description.css";
-import products from "../../../products.json";
+import { FETCHED_DATA } from "../../data/data";
 
 const specifications: string[] = ["Description", "Discount Percentage", "Rating", "Stock", "Brand", "Category"];
 
@@ -8,10 +8,10 @@ export class DescriptionBlock {
     description: (string | number | string[])[] 
     price: number
     constructor(index: number) {
-        this.title = products["products"][index]["title"];
-        this.description = Object.values(products["products"][index]).slice(2, 9);
+        this.title = FETCHED_DATA["products"][index]["title"];
+        this.description = Object.values(FETCHED_DATA["products"][index]).slice(2, 9);
         this.description.splice(1, 1);
-        this.price = products["products"][index]["price"];
+        this.price = FETCHED_DATA["products"][index]["price"];
     }
     render(): HTMLDivElement {
         const cart = document.createElement('div');
