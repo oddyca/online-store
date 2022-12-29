@@ -55,6 +55,14 @@
   margin-bottom: 1rem;
 }
 
+.card-list {
+  width: 100% !important;
+}
+
+.list {
+  flex-direction: column; 
+}
+
 .products-list {
   width: 100%;
   display: flex;
@@ -69,4 +77,11 @@
   height: 200px;
   padding: .5rem;
   border: solid blue;
+}
+
+
+
+.button-list {
+  background-color: grey;
+  color: white;
 }
