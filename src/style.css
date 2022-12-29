@@ -59,8 +59,13 @@
   width: 100% !important;
 }
 
-.list {
+.display-list {
   flex-direction: column; 
+}
+
+.button-list {
+  background-color: grey;
+  color: white;
 }
 
 .products-list {
@@ -79,9 +84,3 @@
   border: solid blue;
 }
 
-
-
-.button-list {
-  background-color: grey;
-  color: white;
-}
