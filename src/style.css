@@ -13,33 +13,43 @@
   gap: 16px;
 }
 
-.filter_categories {
+.app_main_filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 520px;
+}
+
+.filter_option {
   flex: 1;
   border: solid red;
   height: 250px;
   padding: 0 .5rem .5rem .5rem;
   display: flex;
   flex-direction: column;
+}
+
+.filter_option-list {
   overflow: auto;
 }
 
-.filter_categories-header {
+.filter_option-header {
   background-color: grey;
   color: white;
   text-align: center;
 }
 
-.filter_categories > form {
+.filter_option > form {
   display: flex;
   flex-direction: column;
 }
 
-.filter_categories-wrapepr {
+.filter_option-wrapepr {
   display: flex;
   gap: .5rem;
 }
 
-.filter_categories_count {
+.filter_option_count {
   color: grey;
 }
 
