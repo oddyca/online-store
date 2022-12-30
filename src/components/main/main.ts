@@ -8,7 +8,11 @@ export class Main {
     const mainSection = document.createElement('main');
     mainSection.classList.add('app_main');
     const filterBlock = document.createElement('div');
-    filterBlock.classList.add('app_main_filters')
+    filterBlock.classList.add('app_main_filters');
+
+    // window.onpopstate = () => {  
+    //   mainSection.innerHTML = _routes_[window.location.pathname];
+    // };
 
     const categoriesBlock = new CategoriesBlock;
     const brandsBlock = new BrandsBlock;

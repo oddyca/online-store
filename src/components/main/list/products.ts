@@ -1,11 +1,12 @@
 import { Route } from '../../router/route';
 import { FETCHED_DATA } from "../../data/data";
+import { DescriptionBlock } from '../description/description';
 
 const allProducts = Object.keys(FETCHED_DATA["products"]);
 
 export class ProductsList {
-  constructor() {
 
+  constructor() {
   }
 
   render(): HTMLDivElement {
@@ -27,6 +28,9 @@ export class ProductsList {
       productCardLink.onclick = (e):void => {
         e.preventDefault();
         productRoute.createRoute();
+        const replaceWith = new DescriptionBlock(id);
+        const root = document.querySelector('.app_main') as Element;
+        root.innerHTML = replaceWith.render().innerHTML;
       }
 
       productCard.append(productCardLink);
