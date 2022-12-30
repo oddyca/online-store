@@ -2,7 +2,7 @@ import { FETCHED_DATA } from "../../data/data";
 
 const CATEGORIES: string[] = []; // array of strings representing all found categories in the DB
 
-interface allCategories { // interface (object) for counting all instances of each found category
+interface ProductsFilter { // interface (object) for counting all instances of each found category
   [cat: string]: number
 }
 
@@ -10,13 +10,13 @@ for (let i = 0; i < FETCHED_DATA["products"].length; i++) { // push a name of a 
   CATEGORIES.push(FETCHED_DATA["products"][i]["category"])
 }
 
-let countCategories: allCategories = {} // create an object of type 'allCategories' interface
+let countCategories: ProductsFilter = {} // create an object of type 'ProductsFilter' interface
 
 for (let category of CATEGORIES) {
   countCategories[category] = CATEGORIES.filter(x => x === category).length; // add to the above object properties with keys = category name and value = times each category is found
 }
 
-const categoriesSet = new Set(Object.keys(countCategories)); // create a set out of all categories. Set eliminates all repeats
+const categoriesSet = new Set(Object.keys(countCategories)); // create a set out of all categories
 
 export class CategoriesBlock {
   categories: string[]
@@ -38,8 +38,6 @@ export class CategoriesBlock {
       const checkBox = document.createElement('input');
       const checkBoxWrapper = document.createElement('div');
       const categoryCount = document.createElement('span');
-
-
 
       checkBoxWrapper.classList.add('filter_categories-wrapepr');
       checkBox.setAttribute('type', 'checkbox');
