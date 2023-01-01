@@ -1,4 +1,4 @@
-import { ProductsList } from './list/products';
+import { ProductsList, Routes} from './list/products';
 import { CategoriesBlock, BrandsBlock } from './filter/filter';
 import { ProductsHeader } from './list/products-header';
 
@@ -9,10 +9,6 @@ export class Main {
     mainSection.classList.add('app_main');
     const filterBlock = document.createElement('div');
     filterBlock.classList.add('app_main_filters');
-
-    // window.onpopstate = () => {  
-    //   mainSection.innerHTML = _routes_[window.location.pathname];
-    // };
 
     const categoriesBlock = new CategoriesBlock;
     const brandsBlock = new BrandsBlock;
@@ -31,3 +27,5 @@ export class Main {
     return mainSection;
   }
 }
+
+// Route handling
