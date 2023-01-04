@@ -30,6 +30,10 @@ li {
     width: 100%;
 }
 
+.img-item:focus  {
+    width: 200%;
+}
+
 .thumbnail {
     width: 25%;
 }
