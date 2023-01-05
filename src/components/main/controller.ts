@@ -14,10 +14,13 @@ interface RoutesObjectContent {
 
 export const Routes: RoutesObjectContent = {}
 
-for (let i = 0; i < allIDs.length; i++) {
-  const id = FETCHED_DATA['products'][i]["id"];
+export function exportPath(route:string): string {
+  const id:number = parseInt(route.slice(1));
+
   const descriptions = new DescriptionBlock(id);
-  Routes[`/${id}`] = descriptions.render().innerHTML;
+  const routeHTML = descriptions.render().innerHTML;
+
+  return routeHTML;
 }
 
 

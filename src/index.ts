@@ -1,6 +1,6 @@
 import { Main } from './components/main/main';
 import { Routes } from './components/main/controller';
-// import { Controller } from './components/main/controller';
+import { exportPath } from './components/main/controller';
 import './style.css'
 
 const app = document.getElementById("app");
@@ -16,7 +16,7 @@ window.onpopstate = () => {
     rootElement.innerHTML = '';
     rootElement?.append(mainSection.render());
   } else {
-    rootElement.innerHTML = Routes[location];
+    rootElement.innerHTML = exportPath(location);
   }
 };
 window.addEventListener('DOMContentLoaded', () => {
@@ -26,6 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
     rootElement.append(mainSection.render());
   } else {
     console.log(Routes)
-    rootElement.innerHTML = Routes[location];
+    rootElement.innerHTML = exportPath(location);
   }
 });
