@@ -1,19 +1,31 @@
 import { Main } from './components/main/main';
-import { Routes } from './components/main/list/products'
+import { Routes } from './components/main/controller';
+// import { Controller } from './components/main/controller';
 import './style.css'
 
 const app = document.getElementById("app");
 const mainSection = new Main;
+const location = window.location.pathname;
 
 app?.append(mainSection.render());
 
-const rootElement = document.querySelector('.app_main') as HTMLElement;
-const rootHTML: string = rootElement.innerHTML;
-console.log(window.location.pathname)
+const rootElement = document.querySelector('.app_main')!;
+
 window.onpopstate = () => {  
-  if (window.location.pathname === '/') {
-    rootElement.innerHTML = rootHTML;
+  if (location === '/') {
+    rootElement.innerHTML = '';
+    rootElement?.append(mainSection.render());
   } else {
-    rootElement.innerHTML = Routes[window.location.pathname];
+    rootElement.innerHTML = Routes[location];
   }
 };
+window.addEventListener('DOMContentLoaded', () => {
+  console.log('onload', location)
+  if (location === '/') {
+    rootElement.innerHTML = '';
+    rootElement.append(mainSection.render());
+  } else {
+    console.log(Routes)
+    rootElement.innerHTML = Routes[location];
+  }
+});

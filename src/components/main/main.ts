@@ -1,4 +1,4 @@
-import { ProductsList, Routes} from './list/products';
+import { ProductsList} from './list/products';
 import { CategoriesBlock, BrandsBlock } from './filter/filter';
 import { ProductsHeader } from './list/products-header';
 
