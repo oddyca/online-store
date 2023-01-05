@@ -43,6 +43,7 @@ export class DescriptionBlock {
         thumb.classList.add('thumbnail');
         data.appendChild(thumb);
         this.changeImage();
+        console.log('this.changeImage:', this.changeImage)
         const info = document.createElement('ul');
         data.appendChild(info);
         for (let i = 0; i < this.description.length; i++) {

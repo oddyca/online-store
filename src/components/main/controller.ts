@@ -14,13 +14,13 @@ interface RoutesObjectContent {
 
 export const Routes: RoutesObjectContent = {}
 
-export function exportPath(route:string): string {
+export function exportPath(route:string): HTMLDivElement {
   const id:number = parseInt(route.slice(1));
 
-  const descriptions = new DescriptionBlock(id);
-  const routeHTML = descriptions.render().innerHTML;
+  const description = new DescriptionBlock(id);
+  const descriptionContent = description.render();
 
-  return routeHTML;
+  return descriptionContent;
 }
 
 
