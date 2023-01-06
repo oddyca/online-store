@@ -2,11 +2,14 @@ import { Main } from './components/main/main';
 import { routesAndContent } from './components/main/list/products';
 import { exportPath } from './components/main/controller';
 import { BadGetAway } from './components/404';
+import { Header } from './components/header/header';
 import './style.css'
 
 const app = document.getElementById("app");
+const header = new Header;
 const mainSection = new Main;
 
+app?.append(header.render());
 app?.append(mainSection.render());
 
 const rootElement = document.querySelector('.app_main')!;
