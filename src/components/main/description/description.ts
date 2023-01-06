@@ -36,14 +36,14 @@ export class DescriptionBlock {
             const img = document.createElement('img');
             img.src = this.images[i];
             img.classList.add('img-item');
+            img.addEventListener('click', () => thumb.src = img.src)
             images.appendChild(img);
         }
         const thumb = document.createElement('img');
         thumb.src = this.thumbnail;
         thumb.classList.add('thumbnail');
         data.appendChild(thumb);
-        this.changeImage();
-        console.log('this.changeImage:', this.changeImage)
+        //this.changeImage();
         const info = document.createElement('ul');
         data.appendChild(info);
         for (let i = 0; i < this.description.length; i++) {
@@ -64,7 +64,7 @@ export class DescriptionBlock {
 
         return description;
     }
-    changeImage(): void {
+    /*changeImage(): void {
         const image = document.querySelectorAll('.img-item') as NodeListOf<HTMLImageElement>;
         const thumbnail = document.querySelector('.thumbnail') as HTMLImageElement;
         for(let i = 0; i < image.length; i++){
@@ -72,6 +72,6 @@ export class DescriptionBlock {
                 thumbnail.src = image[i].src;
             })
         }
-    }
+    }*/
 
 }
