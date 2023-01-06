@@ -3,14 +3,17 @@ import { routesAndContent } from './components/main/list/products';
 import { exportPath } from './components/main/controller';
 import { BadGetAway } from './components/404';
 import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
 import './style.css'
 
 const app = document.getElementById("app");
 const header = new Header;
 const mainSection = new Main;
+const footer = new Footer;
 
 app?.append(header.render());
 app?.append(mainSection.render());
+app?.append(footer.render());
 
 const rootElement = document.querySelector('.app_main')!;
 
