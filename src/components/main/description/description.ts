@@ -61,6 +61,7 @@ export class DescriptionBlock {
         price.innerText = `€${this.price}`;
         price.classList.add('price');
         column.appendChild(price);
+
         return description;
     }
     changeImage(): void {

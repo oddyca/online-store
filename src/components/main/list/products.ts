@@ -4,10 +4,12 @@ import { DescriptionBlock } from '../description/description';
 
 const allProducts = Object.keys(FETCHED_DATA["products"]);
 
-export class ProductsList {
+interface RoutesAndContent {
+  [path:string]: DescriptionBlock;
+}
+export const routesAndContent: RoutesAndContent = {}
 
-  constructor() {
-  }
+export class ProductsList {  
 
   render() {
     const productsContainer = document.createElement('div');
@@ -25,13 +27,17 @@ export class ProductsList {
       productCard.innerText = FETCHED_DATA['products'][i]["title"];
       productCardLink.innerText = `${id}`;
       productCardLink.setAttribute('href', `/${id}`);
+      const replaceWith = new DescriptionBlock(id);
+
+      routesAndContent[`/${id}`] = replaceWith;
 
       productCardLink.onclick = (e):void => {
         e.preventDefault();
         productRoute.createRoute();
         const root = document.querySelector('.app_main') as Element;
-        const replaceWith = new DescriptionBlock(id);
-        root.innerHTML = replaceWith.render().innerHTML;
+        // const replaceWith = new DescriptionBlock(id);
+        root.innerHTML = ''
+        root.append(replaceWith.render());
       }
 
       productCard.append(productCardLink);

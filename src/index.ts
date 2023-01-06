@@ -1,6 +1,7 @@
 import { Main } from './components/main/main';
-import { Routes } from './components/main/controller';
+import { routesAndContent } from './components/main/list/products';
 import { exportPath } from './components/main/controller';
+import { BadGetAway } from './components/404';
 import './style.css'
 
 const app = document.getElementById("app");
@@ -10,27 +11,31 @@ app?.append(mainSection.render());
 
 const rootElement = document.querySelector('.app_main')!;
 
+const productRoutes = Object.keys(routesAndContent);
+
 window.onpopstate = () => { 
   const location = window.location.pathname;
   if (location === '/') {
-    console.log('popstate wokrs. Location : /')
     rootElement.innerHTML = '';
     rootElement?.append(mainSection.render());
-  } else {
-    console.log('popstate wokrs. Location : product')
+  } else if (productRoutes.includes(location)) {
     rootElement.innerHTML = '';
     rootElement.append(exportPath(location))
+  } else {
+    rootElement.innerHTML = '';
+    rootElement.append(BadGetAway.render());
   }
 };
 window.addEventListener('DOMContentLoaded', () => {
   const location = window.location.pathname;
-  console.log('onload', location)
   if (location === '/') {
     rootElement.innerHTML = '';
     rootElement.append(mainSection.render());
-  } else {
-    console.log(Routes)
+  } else if (productRoutes.includes(location)) {
     rootElement.innerHTML = '';
-    rootElement.append(exportPath(location));
+    rootElement.append(exportPath(location))
+  } else {
+    rootElement.innerHTML = '';
+    rootElement.append(BadGetAway.render());
   }
 });
