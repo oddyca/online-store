@@ -104,3 +104,6 @@
   border: solid blue;
 }
 
+.hide {
+  display: none;
+}

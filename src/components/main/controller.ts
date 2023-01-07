@@ -44,3 +44,18 @@ export function exportPath(route:string): HTMLDivElement {
   //   }
   // };
 // }
+
+export function Filter(data: string, allChecked: string[]) {
+  const renderedProductCards = document.querySelectorAll<HTMLElement>('.product-card')
+  
+  renderedProductCards.forEach((element) => {
+    const elementCategory = element.getElementsByTagName('div')[0].dataset['category'] as string;
+    if (allChecked.includes(elementCategory)) {
+      element.classList.remove('hide');
+    } else if (allChecked.length === 0) {
+      element.classList.remove('hide');
+    } else {
+      element.classList.add('hide');
+    }
+  });
+}

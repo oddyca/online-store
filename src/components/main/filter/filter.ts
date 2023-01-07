@@ -1,4 +1,5 @@
 import { FETCHED_DATA } from "../../data/data";
+import { Filter } from '../controller';
 
 interface ProductsFilter { // interface (object) for counting all instances of each found category
   [cat: string]: number
@@ -37,16 +38,36 @@ export class CategoriesBlock {
     categoriesHeader.innerText = 'Category';
     categoriesBlock.append(categoriesHeader);
     categoriesBlock.append(categoriesWrapper);
+    let checkedCategories: string[] = []
     for (let i = 0; i < this.categories.length; i++) {
       const checkBoxLabel = document.createElement('label');
       const checkBox = document.createElement('input');
+      
       const checkBoxWrapper = document.createElement('div');
       const categoryCount = document.createElement('span');
 
       checkBoxWrapper.classList.add('filter_option-wrapepr');
       checkBox.setAttribute('type', 'checkbox');
       checkBox.setAttribute('name', 'category');
+      checkBox.setAttribute('id', `${this.categories[i]}`);
+      checkBox.classList.add('category-filter');
+
+      
+      
+      checkBox.onclick = (e) => {
+        const targetId = (<HTMLElement>e.target).id;
+        
+        if ((<HTMLInputElement>e.target).checked) {
+          checkedCategories.push(targetId);
+        } else {
+          checkedCategories = checkedCategories.slice(0, checkedCategories.indexOf(targetId)).concat(checkedCategories.slice(checkedCategories.indexOf(targetId) + 1))
+        }
+        console.log(checkedCategories)
+        Filter(targetId, checkedCategories);
+      }
+
       checkBoxLabel.innerText = `${this.categories[i]}`;
+      checkBoxLabel.setAttribute('for', `${this.categories[i]}`)
       categoryCount.innerText = `${countCategories[this.categories[i]]}`;
       categoryCount.classList.add('filter_option_count')
       

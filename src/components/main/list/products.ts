@@ -20,12 +20,13 @@ export class ProductsList {
       const productCard = document.createElement('div');
       const id = FETCHED_DATA['products'][i]["id"];
 
-      productCard.classList.add('product-card');
+      productCardLink.classList.add('product-card');
+      productCard.dataset.category = `${FETCHED_DATA['products'][i]['category']}`;
+      productCard.dataset.brand = `${FETCHED_DATA['products'][i]['brand']}`;
       
       const productRoute = new Route(`/${id}`);
 
       productCard.innerText = FETCHED_DATA['products'][i]["title"];
-      productCardLink.innerText = `${id}`;
       productCardLink.setAttribute('href', `/${id}`);
       const replaceWith = new DescriptionBlock(id);
 
@@ -35,13 +36,12 @@ export class ProductsList {
         e.preventDefault();
         productRoute.createRoute();
         const root = document.querySelector('.app_main') as Element;
-        // const replaceWith = new DescriptionBlock(id);
         root.innerHTML = ''
         root.append(replaceWith.render());
       }
 
-      productCard.append(productCardLink);
-      productsContainer.append(productCard);
+      productCardLink.append(productCard);
+      productsContainer.append(productCardLink);
     }
 
     return productsContainer;
