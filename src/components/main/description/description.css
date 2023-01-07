@@ -42,10 +42,15 @@ li {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2rem;
 }
 
 .price {
     font-size: 2rem;
+}
+
+.card-button {
+    margin-bottom: 0.5rem;
 }
 
 

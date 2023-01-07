@@ -43,7 +43,6 @@ export class DescriptionBlock {
         thumb.src = this.thumbnail;
         thumb.classList.add('thumbnail');
         data.appendChild(thumb);
-        //this.changeImage();
         const info = document.createElement('ul');
         data.appendChild(info);
         for (let i = 0; i < this.description.length; i++) {
@@ -61,17 +60,17 @@ export class DescriptionBlock {
         price.innerText = `€${this.price}`;
         price.classList.add('price');
         column.appendChild(price);
+        const buttons = document.createElement('div');
+        column.appendChild(buttons);
+        const button1 = document.createElement('button');
+        button1.innerText = 'Add to cart';
+        button1.classList.add('card-button');
+        buttons.appendChild(button1);
+        const button2 = document.createElement('button');
+        button2.innerText = 'Buy now';
+        buttons.appendChild(button2);
 
         return description;
     }
-    /*changeImage(): void {
-        const image = document.querySelectorAll('.img-item') as NodeListOf<HTMLImageElement>;
-        const thumbnail = document.querySelector('.thumbnail') as HTMLImageElement;
-        for(let i = 0; i < image.length; i++){
-            image[i].addEventListener('click', () => {
-                thumbnail.src = image[i].src;
-            })
-        }
-    }*/
 
 }
