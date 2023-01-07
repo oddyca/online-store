@@ -12,9 +12,36 @@
   border: solid green;
   padding: 16px 64px 16px 64px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
+.header_cart {
+  position: relative;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.header_cart > img {
+  width: 24px;
+  height: 24px;
+}
+
+.cart_counter {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  padding: 0;
+  top: 0;
+  right: 0;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .app_main {
   margin: 16px 0 16px 0;
