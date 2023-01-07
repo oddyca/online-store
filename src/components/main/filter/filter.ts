@@ -1,5 +1,6 @@
 import { FETCHED_DATA } from "../../data/data";
-import { Filter } from '../controller';
+import { filter } from '../controller';
+import { countFoundItems } from '../controller'
 
 interface ProductsFilter { // interface (object) for counting all instances of each found category
   [cat: string]: number
@@ -52,18 +53,20 @@ export class CategoriesBlock {
       checkBox.setAttribute('id', `${this.categories[i]}`);
       checkBox.classList.add('category-filter');
 
-      
-      
       checkBox.onclick = (e) => {
         const targetId = (<HTMLElement>e.target).id;
+        const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
         
         if ((<HTMLInputElement>e.target).checked) {
           checkedCategories.push(targetId);
         } else {
-          checkedCategories = checkedCategories.slice(0, checkedCategories.indexOf(targetId)).concat(checkedCategories.slice(checkedCategories.indexOf(targetId) + 1))
+          checkedCategories = checkedCategories
+            .slice(0, checkedCategories.indexOf(targetId))
+            .concat(checkedCategories.slice(checkedCategories.indexOf(targetId) + 1))
         }
-        console.log(checkedCategories)
-        Filter(targetId, checkedCategories);
+        filter(targetId, checkedCategories);
+        console.log('foundCounter', e.currentTarget)
+        foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
       }
 
       checkBoxLabel.innerText = `${this.categories[i]}`;

@@ -45,7 +45,7 @@ export function exportPath(route:string): HTMLDivElement {
   // };
 // }
 
-export function Filter(data: string, allChecked: string[]) {
+export function filter(data: string, allChecked: string[]) {
   const renderedProductCards = document.querySelectorAll<HTMLElement>('.product-card')
   
   renderedProductCards.forEach((element) => {
@@ -58,4 +58,10 @@ export function Filter(data: string, allChecked: string[]) {
       element.classList.add('hide');
     }
   });
+}
+
+export function countFoundItems() {
+  const renderedProductCards = document.querySelectorAll('.hide');
+  console.log(renderedProductCards)
+  return renderedProductCards.length
 }

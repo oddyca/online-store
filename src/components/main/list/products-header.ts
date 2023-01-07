@@ -26,6 +26,7 @@ export class ProductsHeader {
             sort.appendChild(elementDesc);
         }
         const count = document.createElement('div'); // add amount of found items
+        count.classList.add('products-header_found')
         count.innerText = `Found: ${this.amount}`;
         header.appendChild(count);
         const search = document.createElement('input'); // add search field
