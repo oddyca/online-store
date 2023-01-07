@@ -107,3 +107,44 @@
 .hide {
   display: none;
 }
+
+.shopping-cart {
+  display: flex;
+}
+
+.shop-items {
+  width: 70%;
+}
+
+.shop-item {
+  display: flex;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: solid 1px blue;
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+}
+
+.shop-image {
+  width: 20%;
+}
+
+.shop-data {
+  width: 60%;
+}
+
+.shop-numerical-data {
+  width: 15%;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.shop-amount {
+  display: flex;
+  justify-content: space-between;
+}
