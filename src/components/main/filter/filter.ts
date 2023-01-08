@@ -10,8 +10,16 @@ interface ProductsFilter { // interface (object) for counting all instances of e
 // !!!
 // CATEGORIES BLOCK
 
+export interface CheckedInFilter {
+  [attribute:string]: string[]
+}
+
 let countCategories: ProductsFilter = {} // create an object of type 'ProductsFilter' interface
 const allCategories: string[] = [];
+let checkedAttributes: CheckedInFilter = {
+  'categories': [],
+  'brands': []
+};
 
 for (let i = 0; i < FETCHED_DATA["products"].length; i++) { // push a name of a category of each product found in the DB
   allCategories.push(FETCHED_DATA["products"][i]["category"])
@@ -39,7 +47,7 @@ export class CategoriesBlock {
     categoriesHeader.innerText = 'Category';
     categoriesBlock.append(categoriesHeader);
     categoriesBlock.append(categoriesWrapper);
-    let checkedCategories: string[] = []
+
     for (let i = 0; i < this.categories.length; i++) {
       const checkBoxLabel = document.createElement('label');
       const checkBox = document.createElement('input');
@@ -56,16 +64,14 @@ export class CategoriesBlock {
       checkBox.onclick = (e) => {
         const targetId = (<HTMLElement>e.target).id;
         const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
-        
         if ((<HTMLInputElement>e.target).checked) {
-          checkedCategories.push(targetId);
+          checkedAttributes.categories.push(targetId);
         } else {
-          checkedCategories = checkedCategories
-            .slice(0, checkedCategories.indexOf(targetId))
-            .concat(checkedCategories.slice(checkedCategories.indexOf(targetId) + 1))
+          checkedAttributes.categories = checkedAttributes.categories
+            .slice(0, checkedAttributes.categories.indexOf(targetId))
+            .concat(checkedAttributes.categories.slice(checkedAttributes.categories.indexOf(targetId) + 1))
         }
-        filter(targetId, checkedCategories);
-        console.log('foundCounter', e.currentTarget)
+        filter(checkedAttributes);
         foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
       }
 
@@ -124,9 +130,25 @@ export class BrandsBlock {
       checkBoxWrapper.classList.add('filter_option-wrapepr');
       checkBox.setAttribute('type', 'checkbox');
       checkBox.setAttribute('name', 'category');
+      checkBox.setAttribute('id', `${this.brands[i]}`);
       checkBoxLabel.innerText = `${this.brands[i]}`;
+      checkBoxLabel.setAttribute('for', `${this.brands[i]}`)
       brandCount.innerText = `${countBrands[this.brands[i]]}`;
-      brandCount.classList.add('filter_option_count')
+      brandCount.classList.add('filter_option_count');
+
+      checkBox.onclick = (e) => {
+        const targetId = (<HTMLElement>e.target).id;
+        const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
+        if ((<HTMLInputElement>e.target).checked) {
+          checkedAttributes.brands.push(targetId);
+        } else {
+          checkedAttributes.brands = checkedAttributes.brands
+            .slice(0, checkedAttributes.brands.indexOf(targetId))
+            .concat(checkedAttributes.brands.slice(checkedAttributes.brands.indexOf(targetId) + 1))
+        }
+        filter(checkedAttributes);
+        foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
+      }
       
       checkBoxWrapper.append(checkBox);
       checkBoxWrapper.append(checkBoxLabel);
@@ -137,3 +159,59 @@ export class BrandsBlock {
     return brandsBlock;
   }
 }
+
+/* 
+
+let countAttributes: ProductsFilter = {}
+const countAttributes: string[] = [];
+
+for (let i = 0; i < FETCHED_DATA["products"].length; i++) {
+  countAttributes.push(FETCHED_DATA["products"][i][ _attribute_ ])
+}
+
+for (let element of countAttributes) {
+  countAttributes[element] = countAttributes.filter(x => x === brand).length;
+}
+
+const attributesSet = new Set(Object.keys(countAttributes));
+
+export class AttributeBlock {
+  attributes: string[]
+  constructor() {
+    this.attributes = [...attributesSet];
+  }
+
+  render(): HTMLDivElement {
+    const attributesBlock = document.createElement('div');
+    attributesBlock.classList.add('filter_option');
+    const attributesWrapper = document.createElement('form');
+    attributesWrapper.classList.add('filter_option-list');
+    const attributesHeader = document.createElement('div');
+    attributesHeader.classList.add('filter_option-header');
+    attributesHeader.innerText = `${ _attribute_ }`;
+    attributesBlock.append(attributesHeader);
+    attributesBlock.append(attributesWrapper);
+    for (let i = 0; i < this.attributes.length; i++) {
+      const checkBoxLabel = document.createElement('label');
+      const checkBox = document.createElement('input');
+      const checkBoxWrapper = document.createElement('div');
+      const attributeCount = document.createElement('span');
+
+      checkBoxWrapper.classList.add('filter_option-wrapepr');
+      checkBox.setAttribute('type', 'checkbox');
+      checkBox.setAttribute('name', 'category');
+      checkBoxLabel.innerText = `${this.attributes[i]}`;
+      attributeCount.innerText = `${countAttributes[this.attributes[i]]}`;
+      attributeCount.classList.add('filter_option_count')
+      
+      checkBoxWrapper.append(checkBox);
+      checkBoxWrapper.append(checkBoxLabel);
+      checkBoxWrapper.append(attributeCount);
+      attributesWrapper.append(checkBoxWrapper);
+    }
+
+    return attributesBlock;
+  }
+}
+
+*/
