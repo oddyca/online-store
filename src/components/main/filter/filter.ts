@@ -1,6 +1,6 @@
 import { FETCHED_DATA } from "../../data/data";
 import { filter } from '../controller';
-import { countFoundItems } from '../controller'
+import { countFoundItems, QueryController } from '../controller'
 
 interface ProductsFilter { // interface (object) for counting all instances of each found category
   [cat: string]: number
@@ -10,15 +10,15 @@ interface ProductsFilter { // interface (object) for counting all instances of e
 // !!!
 // CATEGORIES BLOCK
 
-export interface CheckedInFilter {
+export interface ToFilter {
   [attribute:string]: string[]
 }
 
 let countCategories: ProductsFilter = {} // create an object of type 'ProductsFilter' interface
 const allCategories: string[] = [];
-let checkedAttributes: CheckedInFilter = {
+let checkedAttributes: ToFilter = {
   'categories': [],
-  'brands': []
+  'brands': [],
 };
 
 for (let i = 0; i < FETCHED_DATA["products"].length; i++) { // push a name of a category of each product found in the DB
@@ -65,11 +65,13 @@ export class CategoriesBlock {
         const targetId = (<HTMLElement>e.target).id;
         const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
         if ((<HTMLInputElement>e.target).checked) {
-          checkedAttributes.categories.push(targetId);
+          (<string[]>checkedAttributes.categories).push(targetId);
+          QueryController(/* 'filter', */checkedAttributes, true);
         } else {
           checkedAttributes.categories = checkedAttributes.categories
             .slice(0, checkedAttributes.categories.indexOf(targetId))
-            .concat(checkedAttributes.categories.slice(checkedAttributes.categories.indexOf(targetId) + 1))
+            .concat(checkedAttributes.categories.slice(checkedAttributes.categories.indexOf(targetId) + 1));
+            QueryController(/* 'filter', */checkedAttributes, false);
         }
         filter(checkedAttributes);
         foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
@@ -141,10 +143,12 @@ export class BrandsBlock {
         const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
         if ((<HTMLInputElement>e.target).checked) {
           checkedAttributes.brands.push(targetId);
+          QueryController(/*'filter', */ checkedAttributes, /*true*/);
         } else {
           checkedAttributes.brands = checkedAttributes.brands
             .slice(0, checkedAttributes.brands.indexOf(targetId))
-            .concat(checkedAttributes.brands.slice(checkedAttributes.brands.indexOf(targetId) + 1))
+            .concat(checkedAttributes.brands.slice(checkedAttributes.brands.indexOf(targetId) + 1));
+            QueryController(/* 'filter', */checkedAttributes, /*false*/);
         }
         filter(checkedAttributes);
         foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
