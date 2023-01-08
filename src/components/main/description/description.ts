@@ -69,19 +69,23 @@ export class DescriptionBlock {
         
         const button1 = document.createElement('button');
         let arr = JSON.parse(localStorage.getItem('cart') || '[]');
-        let isShopButtonClicked = arr.filter((item:Products) => item.id === this.id).length !== 0 
+        let isShopButtonClicked = arr.filter((item:Products) => item.id === this.id).length !== 0; 
         button1.innerText = isShopButtonClicked === false ? 'Add to cart' : 'Drop from cart';
         button1.classList.add('card-button');
         buttons.appendChild(button1);
         button1.addEventListener('click', () => {
-            let arr = JSON.parse(localStorage.getItem('cart') || '[]');             // add product to cart
+            arr = JSON.parse(localStorage.getItem('cart') || '[]');             // add product to cart
             if(isShopButtonClicked === false) {
                 arr.push({id: this.id, amount: 1});
                 isShopButtonClicked = true;
+                const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                cartIcon.innerText = `${Number(cartIcon.innerText) + 1}`;
                 button1.innerText = 'Drop from cart';
             } else {
                 let index = arr.findIndex((item:Products) => item.id === this.id);
                 arr.splice(index, 1);
+                const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                cartIcon.innerText = `${Number(cartIcon.innerText) - 1}`;
                 button1.innerText = 'Add to cart';
                 isShopButtonClicked = false;
             }

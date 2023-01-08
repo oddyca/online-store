@@ -6,20 +6,23 @@ export interface Products {
 }
 
 export class ShoppingCart {
+    totalAmount: number
+    productsList: Products[]
+    constructor() {
+        this.productsList = JSON.parse(localStorage.getItem('cart') || '[]');
+        this.totalAmount = this.productsList.reduce((sum, current) => sum + current.amount, 0);
+    }
     render() {
-        let productsList: Products[];
-        productsList = JSON.parse(localStorage.getItem('cart') || '[]'); 
         const cart = document.createElement('div');
         cart.classList.add('shopping-cart');
-        if(productsList.length === 0) cart.innerText = 'Cart is empty';
+        if(this.productsList.length === 0) cart.innerText = 'Cart is empty';
         const products = document.createElement('div');
         products.classList.add('shop-items');
         cart.appendChild(products);
 
-        for (let i = 0; i < productsList.length; i++) {
-            const id = productsList[i]["id"];
-            const amount = productsList[i]["amount"];
-            console.log(amount)
+        for (let i = 0; i < this.productsList.length; i++) {
+            const id = this.productsList[i]["id"];
+            let amount = this.productsList[i]["amount"];
             const cartItem = document.createElement('div');
             cartItem.classList.add('shop-item');
             products.appendChild(cartItem);
@@ -61,12 +64,42 @@ export class ShoppingCart {
 
             const buttonMinus = document.createElement('button');
             buttonMinus.innerText = '-';
+            buttonMinus.addEventListener('click', () => {                  //decreasing amount of products
+                if(amount > 0){
+                    amount -= 1;
+                    this.totalAmount -=1;
+                    const cartIcon = document.querySelector('.cart_counter') as HTMLElement
+                    cartIcon.innerText = `${this.totalAmount}`;
+                    if(amount === 0){
+                        this.productsList.splice(i, 1);
+                        localStorage.setItem('cart', JSON.stringify(this.productsList));
+                        cartItem.remove()
+                    } else {
+                        this.productsList[i].amount += 1;
+                        localStorage.setItem('cart', JSON.stringify(this.productsList));
+                        quantity.innerText = `${amount}`;
+                        price.innerText = `€${FETCHED_DATA["products"][id - 1]["price"] * amount}`;
+                    }
+                }
+            })
             changeAmount.appendChild(buttonMinus);
             const quantity = document.createElement('div');
             quantity.innerText = `${amount}`;
             changeAmount.appendChild(quantity);
             const buttonPlus = document.createElement('button');
             buttonPlus.innerText = '+';
+            buttonPlus.addEventListener('click', () => {                       //increasing amount of product
+                if(amount < FETCHED_DATA["products"][id - 1]["stock"]) {
+                    amount += 1;
+                    this.productsList[i].amount += 1;
+                    localStorage.setItem('cart', JSON.stringify(this.productsList));
+                    this.totalAmount += 1;
+                    quantity.innerText = `${amount}`;
+                    price.innerText = `€${FETCHED_DATA["products"][id - 1]["price"] * amount}`;
+                    const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                    cartIcon.innerText = `${this.totalAmount}`;
+                }
+            })
             changeAmount.appendChild(buttonPlus);
 
             const price = document.createElement('div');

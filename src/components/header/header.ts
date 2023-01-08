@@ -1,3 +1,5 @@
+import { ShoppingCart } from "./cart";
+
 export class Header {
   render() {
     const headerElement: Element = document.createElement('header');
@@ -21,7 +23,8 @@ export class Header {
     cartLogo.setAttribute('src', require('../../assets/cart.svg'));
     const cartItemCounter = document.createElement('div');
     cartItemCounter.classList.add('cart_counter');
-    cartItemCounter.innerHTML = '0';
+    const shopCart = new ShoppingCart();
+    cartItemCounter.innerHTML = `${shopCart.totalAmount}`;
     cartElement.append(cartLogo);
     cartElement.append(cartItemCounter);
 
