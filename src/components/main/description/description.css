@@ -35,6 +35,7 @@ li {
 }
 
 .thumbnail {
+    max-height: 40vh;
     width: 25%;
 }
 

@@ -79,13 +79,17 @@ export class DescriptionBlock {
                 arr.push({id: this.id, amount: 1});
                 isShopButtonClicked = true;
                 const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
                 cartIcon.innerText = `${Number(cartIcon.innerText) + 1}`;
+                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) + FETCHED_DATA["products"][this.id - 1]["price"]}.00`;
                 button1.innerText = 'Drop from cart';
             } else {
                 let index = arr.findIndex((item:Products) => item.id === this.id);
                 arr.splice(index, 1);
                 const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
                 cartIcon.innerText = `${Number(cartIcon.innerText) - 1}`;
+                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) - FETCHED_DATA["products"][this.id - 1]["price"]}.00`;
                 button1.innerText = 'Add to cart';
                 isShopButtonClicked = false;
             }

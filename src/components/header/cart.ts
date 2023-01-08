@@ -1,4 +1,5 @@
 import { FETCHED_DATA } from "../data/data";
+import { Summary } from './summary'
 
 export interface Products {
     id: number;
@@ -8,9 +9,12 @@ export interface Products {
 export class ShoppingCart {
     totalAmount: number
     productsList: Products[]
+    totalSum: number
     constructor() {
         this.productsList = JSON.parse(localStorage.getItem('cart') || '[]');
         this.totalAmount = this.productsList.reduce((sum, current) => sum + current.amount, 0);
+        this.totalSum = this.productsList.reduce((sum, current) => sum + FETCHED_DATA["products"][current.id - 1]["price"], 0);
+        
     }
     render() {
         const cart = document.createElement('div');
@@ -39,7 +43,7 @@ export class ShoppingCart {
             const itemData = document.createElement('div');
             itemData.classList.add('shop-data');
             cartItem.appendChild(itemData);
-            const itemTitle = document.createElement('div');
+            const itemTitle = document.createElement('h2');
             itemTitle.innerText = FETCHED_DATA["products"][id - 1]["title"];
             itemData.appendChild(itemTitle);
             const itemDescription = document.createElement('div');
@@ -68,14 +72,23 @@ export class ShoppingCart {
                 if(amount > 0){
                     amount -= 1;
                     this.totalAmount -=1;
-                    const cartIcon = document.querySelector('.cart_counter') as HTMLElement
+                    this.totalSum -= FETCHED_DATA["products"][id - 1]["price"];
+                    const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                    const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
+                    const amountIcon = document.querySelector('.summary-amount') as HTMLElement;
+                    const priceIcon = document.querySelector('.summary-price') as HTMLElement;
                     cartIcon.innerText = `${this.totalAmount}`;
+                    amountIcon.innerText = `Products: ${this.totalAmount}`;
+                    sumIcon.innerText = `€${this.totalSum}.00`;
+                    priceIcon.innerText = `Total: €${this.totalSum}`;
                     if(amount === 0){
                         this.productsList.splice(i, 1);
                         localStorage.setItem('cart', JSON.stringify(this.productsList));
-                        cartItem.remove()
+                        cartItem.remove();
+                        summary.remove();
+                        cart.innerText = 'Cart is empty';
                     } else {
-                        this.productsList[i].amount += 1;
+                        this.productsList[i].amount -= 1;
                         localStorage.setItem('cart', JSON.stringify(this.productsList));
                         quantity.innerText = `${amount}`;
                         price.innerText = `€${FETCHED_DATA["products"][id - 1]["price"] * amount}`;
@@ -91,13 +104,20 @@ export class ShoppingCart {
             buttonPlus.addEventListener('click', () => {                       //increasing amount of product
                 if(amount < FETCHED_DATA["products"][id - 1]["stock"]) {
                     amount += 1;
+                    this.totalAmount += 1;
                     this.productsList[i].amount += 1;
                     localStorage.setItem('cart', JSON.stringify(this.productsList));
-                    this.totalAmount += 1;
+                    this.totalSum += FETCHED_DATA["products"][id - 1]["price"];
                     quantity.innerText = `${amount}`;
                     price.innerText = `€${FETCHED_DATA["products"][id - 1]["price"] * amount}`;
                     const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                    const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
+                    const amountIcon = document.querySelector('.summary-amount') as HTMLElement;
+                    const priceIcon = document.querySelector('.summary-price') as HTMLElement;
                     cartIcon.innerText = `${this.totalAmount}`;
+                    amountIcon.innerText = `Products: ${this.totalAmount}`;
+                    sumIcon.innerText = `€${this.totalSum}.00`;
+                    priceIcon.innerText = `Total: €${this.totalSum}`;
                 }
             })
             changeAmount.appendChild(buttonPlus);
@@ -106,6 +126,9 @@ export class ShoppingCart {
             price.innerText = `€${FETCHED_DATA["products"][id - 1]["price"] * amount}`;
             numbers.appendChild(price);
         }
+        const summary = new Summary;
+        if(this.totalAmount !== 0) cart.appendChild(summary.render())
+
         return cart
     }
 }

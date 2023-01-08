@@ -137,6 +137,7 @@
 
 .shopping-cart {
   display: flex;
+  justify-content: space-between;
 }
 
 .shop-items {
@@ -147,7 +148,7 @@
   display: flex;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: solid 1px blue;
+  border: solid 2px blue;
 }
 
 .number {
@@ -174,4 +175,9 @@
 .shop-amount {
   display: flex;
   justify-content: space-between;
+}
+
+.summary {
+  border: solid 2px blue;
+  padding: 1rem;
 }
