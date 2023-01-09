@@ -1,11 +1,12 @@
 import { Route } from '../../router/route';
 import { FETCHED_DATA } from "../../data/data";
 import { DescriptionBlock } from '../description/description';
+import { ShoppingCart } from '../../header/cart'
 
 const allProducts = Object.keys(FETCHED_DATA["products"]);
 
 interface RoutesAndContent {
-  [path:string]: DescriptionBlock;
+  [path:string]: DescriptionBlock | ShoppingCart;
 }
 export const routesAndContent: RoutesAndContent = {}
 

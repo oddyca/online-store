@@ -1,7 +1,8 @@
 // import { Main } from './main';
 // import { FETCHED_DATA } from "../data/data";
 import { DescriptionBlock } from './description/description';
-import { ToFilter } from '../main/filter/filter'
+import { ToFilter } from '../main/filter/filter';
+import { ShoppingCart } from '../header/cart';
 
 // const mainSection = new Main;
 // const location = window.location.pathname;
@@ -18,12 +19,17 @@ import { ToFilter } from '../main/filter/filter'
 export let QueryCollection: string[] = [];
 
 export function exportPath(route:string): HTMLDivElement {
-  const id:number = parseInt(route.slice(1));
+  let toRender!: HTMLDivElement;
+  if (route.slice(1) !== 'cart') {
+    const id:number = parseInt(route.slice(1));
 
-  const description = new DescriptionBlock(id);
-  const descriptionContent = description.render();
-
-  return descriptionContent;
+    const description = new DescriptionBlock(id);
+    toRender = description.render();
+  } else {
+    const cart = new ShoppingCart()
+    toRender = cart.render();
+  }
+  return toRender
 }
 
 

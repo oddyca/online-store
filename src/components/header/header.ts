@@ -1,7 +1,7 @@
 import { ShoppingCart } from "./cart";
 import { Route } from "../router/route";
 import { Summary } from "./summary";
-
+import { routesAndContent } from "../main/list/products"
 
 export class Header {
   render() {
@@ -26,8 +26,10 @@ export class Header {
     cartElement.classList.add('header_cart');
 
     const productRoute = new Route(`/cart`);
+    const shopCart = new ShoppingCart();
+    routesAndContent['/cart'] = shopCart
     cartElement.addEventListener('click', () => {
-      const shopCart = new ShoppingCart();
+      
       productRoute.createRoute();
       const root = document.querySelector('.app_main') as Element;
       root.innerHTML = '';

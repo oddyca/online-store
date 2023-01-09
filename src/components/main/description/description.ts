@@ -23,6 +23,7 @@ export class DescriptionBlock {
     }
     render(): HTMLDivElement {
         const description = document.createElement('div');
+        description.classList.add('app_main');
         const cart = document.createElement('div');
         cart.classList.add('item-cart');
         description.appendChild(cart);

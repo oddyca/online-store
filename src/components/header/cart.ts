@@ -17,6 +17,8 @@ export class ShoppingCart {
         
     }
     render() {
+        const cartWrapper = document.createElement('div');
+        cartWrapper.classList.add('app_main')
         const cart = document.createElement('div');
         cart.classList.add('shopping-cart');
         if(this.productsList.length === 0) cart.innerText = 'Cart is empty';
@@ -129,6 +131,7 @@ export class ShoppingCart {
         const summary = new Summary;
         if(this.totalAmount !== 0) cart.appendChild(summary.render())
 
-        return cart
+        cartWrapper.append(cart)
+        return cartWrapper
     }
 }
