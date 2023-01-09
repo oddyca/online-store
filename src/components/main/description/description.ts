@@ -1,6 +1,10 @@
 import "./description.css";
 import { FETCHED_DATA } from "../../data/data";
 import { Products } from "../../header/cart";
+import { ShoppingCart } from "../../header/cart";
+import { Route } from "../../router/route";
+import { Summary } from "../../header/summary";
+import { routesAndContent } from "../list/products";
 
 const specifications: string[] = ["Description", "Discount Percentage", "Rating", "Stock", "Brand", "Category"];
 
@@ -97,9 +101,30 @@ export class DescriptionBlock {
             localStorage.setItem('cart', JSON.stringify(arr));
         });
 
+        const productRoute = new Route(`/cart`);
+        const shopCart = new ShoppingCart();
+        routesAndContent['/cart'] = shopCart;
+
         const button2 = document.createElement('button');
         button2.innerText = 'Buy now';
         buttons.appendChild(button2);
+        button2.addEventListener('click', () => {
+            arr = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (arr.filter((item:Products) => item.id === this.id).length === 0) {
+                arr.push({id: this.id, amount: 1, price: this.price});
+                localStorage.setItem('cart', JSON.stringify(arr));
+                isShopButtonClicked = true;
+
+                const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
+                cartIcon.innerText = `${Number(cartIcon.innerText) + 1}`;
+                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) + this.price}.00`;
+            }
+            productRoute.createRoute();
+            const root = document.querySelector('.app_main') as Element;
+            root.innerHTML = '';
+            root.append(shopCart.render())
+        })
 
         return description;
     }

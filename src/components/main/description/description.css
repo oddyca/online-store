@@ -31,10 +31,6 @@ li {
     width: 100%;
 }
 
-.img-item:focus  {
-    width: 200%;
-}
-
 .thumbnail {
     max-height: 40vh;
     width: 25%;
