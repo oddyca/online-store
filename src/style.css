@@ -133,6 +133,8 @@
   color: white;
   text-decoration: none;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .card-frame {
@@ -141,11 +143,11 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  overflow: hidden;
+  
 }
 
-.card-frame:hover div {
-  top: 0px;
+.product-card:hover div {
+  bottom: 0px;
 }
 
 .card-frame > p {
@@ -154,17 +156,19 @@
 }
 
 .card_panel {
-  position: relative;
-  top: 25px;
+  position: absolute;
+  bottom: -25px;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   transition: .2s;
+  z-index: 10;
 }
 
 .card_panel > div {
   flex: 1;
-  border: solid 2px black;
+  border: solid 2px rgb(23, 23, 23);
   background-color: white;
   color: black;
   text-align: center;
@@ -172,10 +176,15 @@
 
 .card_panel > button {
   flex: 1;
-  border: solid 2px black;
-  background-color: black;
+  border: solid 2px rgb(23, 23, 23);
+  background-color: rgb(23, 23, 23);
   color: white;
   cursor: pointer;
+  transition: .2s;
+}
+
+.card_panel > button:active {
+  background-color: rgb(0, 0, 0);
 }
 
 .hide {

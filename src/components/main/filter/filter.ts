@@ -66,12 +66,12 @@ export class CategoriesBlock {
         const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
         if ((<HTMLInputElement>e.target).checked) {
           (<string[]>checkedAttributes.categories).push(targetId);
-          QueryController(checkedAttributes, true);
+          QueryController(checkedAttributes);
         } else {
           checkedAttributes.categories = checkedAttributes.categories
             .slice(0, checkedAttributes.categories.indexOf(targetId))
             .concat(checkedAttributes.categories.slice(checkedAttributes.categories.indexOf(targetId) + 1));
-            QueryController(checkedAttributes, false);
+            QueryController(checkedAttributes);
         }
         filter(checkedAttributes);
         foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`

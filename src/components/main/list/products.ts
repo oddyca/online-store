@@ -17,13 +17,13 @@ export class ProductsList {
     productsContainer.classList.add('products-list')
 
     for (let i = 0; i < allProducts.length; i++) {
-      const productCardLink = document.createElement('a');
+      const productCardLink = document.createElement('div');
       const productCard = document.createElement('div');
-      productCard.classList.add('card-frame')
+      productCard.classList.add('card-frame') // product-card
 
       const id = FETCHED_DATA['products'][i]["id"];
 
-      productCardLink.classList.add('product-card');
+      productCardLink.classList.add('product-card'); // card-frame
       productCard.dataset.category = `${FETCHED_DATA['products'][i]['category']}`;
       productCard.dataset.brand = `${FETCHED_DATA['products'][i]['brand']}`;
       
@@ -41,9 +41,7 @@ export class ProductsList {
       productCardPanel.append(productCPButton);
       
       productCard.append(productTitle);
-      productCard.append(productCardPanel);
-
-
+      productCardLink.append(productCardPanel);
 
       productCard.setAttribute('style',
         `
@@ -52,13 +50,13 @@ export class ProductsList {
         background-repeat: no-repeat;
         `
       ) 
-      productCardLink.setAttribute('href', `/${id}`);
+      //productCardLink.setAttribute('href', `/${id}`);
       const replaceWith = new DescriptionBlock(id);
 
       routesAndContent[`/${id}`] = replaceWith;
 
-      productCardLink.onclick = (e):void => {
-        e.preventDefault();
+      productCard.onclick = ():void => {
+        //e.preventDefault();
         productRoute.createRoute();
         const root = document.querySelector('.app_main') as Element;
         root.innerHTML = ''

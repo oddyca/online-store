@@ -84,9 +84,9 @@ export function filter(allChecked: ToFilter) {
   });
 }
 
-export function QueryController(data:ToFilter, isChecked?: boolean) {
+export function QueryController(data:ToFilter) {
   const origin = window.location.origin;
-  const path = window.location.pathname
+  // const path = window.location.pathname
   const filterAttributes = Object.keys(data);
   const url = new URL(origin); // url = https://localhost:8080/
 
