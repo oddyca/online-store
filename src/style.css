@@ -161,6 +161,7 @@
 
 .shop-image {
   width: 20%;
+  object-fit: contain;
 }
 
 .shop-data {

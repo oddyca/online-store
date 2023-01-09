@@ -1,5 +1,6 @@
 import { FETCHED_DATA } from "../data/data";
-import { Summary } from './summary'
+import { Summary } from './summary';
+
 
 export interface Products {
     id: number;
@@ -7,19 +8,20 @@ export interface Products {
 }
 
 export class ShoppingCart {
-    /*totalAmount: number
-    productsList: Products[]
-    totalSum: number
-    constructor() {
-        
-        
-    }*/
+    
     render() {
-        let productsList = JSON.parse(localStorage.getItem('cart') || '[]');
-        let totalAmount = productsList.reduce((sum: number, current: any) => sum + current.amount, 0);
-        let totalSum = productsList.reduce((sum: number, current: any) => sum + current.price, 0);
         const cartWrapper = document.createElement('div');
-        cartWrapper.classList.add('app_main')
+        cartWrapper.classList.add('app_main');
+        cartWrapper.append(this.renderInnerBlock());
+        
+        return cartWrapper
+    }
+
+    renderInnerBlock() {
+        let productsList = JSON.parse(localStorage.getItem('cart') || '[]');
+        let totalAmount = productsList.reduce((sum: number, current: Products) => sum + current.amount, 0);  
+
+        
         const cart = document.createElement('div');
         cart.classList.add('shopping-cart');
         if(productsList.length === 0) cart.innerText = 'Cart is empty';
@@ -72,34 +74,32 @@ export class ShoppingCart {
 
             const buttonMinus = document.createElement('button');
             buttonMinus.innerText = '-';
-            buttonMinus.addEventListener('click', () => {                 //decreasing amount of products
-                if(amount > 0){
-                    amount -= 1;
-                    totalAmount -=1;
-                    totalSum -= productPrice;
-                    const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
-                    const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
-                    const amountIcon = document.querySelector('.summary-amount') as HTMLElement;
-                    const priceIcon = document.querySelector('.summary-price') as HTMLElement;
-                    cartIcon.innerText = `${totalAmount}`;
-                    amountIcon.innerText = `Products: ${totalAmount}`;
-                    sumIcon.innerText = `€${totalSum}.00`;
-                    priceIcon.innerText = `Total: €${totalSum}`;
-                if(amount === 0){
+            buttonMinus.addEventListener('click', () => {               //decreasing amount of products
+                amount -= 1;
+                totalAmount -=1;
+                if (amount === 0) {
                         productsList.splice(i, 1);
                         localStorage.setItem('cart', JSON.stringify(productsList));
-                        cartItem.remove();
+                        this.rerender()
+        
                 } else {
                     productsList[i].amount -= 1;
                     localStorage.setItem('cart', JSON.stringify(productsList));
+            
+                    const amountIcon = document.querySelector('.summary-amount') as HTMLElement;
+                    const priceIcon = document.querySelector('.summary-price') as HTMLElement;
+                    const sum = new Summary();
                     quantity.innerText = `${amount}`;
                     price.innerText = `€${productPrice * amount}`;
-                } 
-                if (totalAmount === 0) {
-                        summary.remove();
-                        cart.innerText = 'Cart is empty';
-                } 
+                    amountIcon.innerText = `Products: ${totalAmount}`;
+                    priceIcon.innerText = `Total: €${sum.totalSum}`;
                 }
+                const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
+                const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
+                const sum = new Summary();
+                cartIcon.innerText = `${totalAmount}`;
+                sumIcon.innerText = `€${sum.totalSum}.00`;
+                 
             })
             changeAmount.appendChild(buttonMinus);
             const quantity = document.createElement('div');
@@ -107,13 +107,12 @@ export class ShoppingCart {
             changeAmount.appendChild(quantity);
             const buttonPlus = document.createElement('button');
             buttonPlus.innerText = '+';
-            buttonPlus.addEventListener('click', () => {                      //increasing amount of product
+            buttonPlus.addEventListener('click', () => {                    //increasing amount of product
                 if(amount < FETCHED_DATA["products"][id - 1]["stock"]) {
                     amount += 1;
                     totalAmount += 1;
                     productsList[i].amount += 1;
                     localStorage.setItem('cart', JSON.stringify(productsList));
-                    totalSum += FETCHED_DATA["products"][id - 1]["price"];
                     quantity.innerText = `${amount}`;
                     price.innerText = `€${productPrice * amount}`;
                     const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
@@ -122,8 +121,9 @@ export class ShoppingCart {
                     const priceIcon = document.querySelector('.summary-price') as HTMLElement;
                     cartIcon.innerText = `${totalAmount}`;
                     amountIcon.innerText = `Products: ${totalAmount}`;
-                    sumIcon.innerText = `€${totalSum}.00`;
-                    priceIcon.innerText = `Total: €${totalSum}`;
+                    const sum = new Summary();
+                    sumIcon.innerText = `€${sum.totalSum}.00`;
+                    priceIcon.innerText = `Total: €${sum.totalSum}`;
                 }
             })
             changeAmount.appendChild(buttonPlus);
@@ -134,8 +134,12 @@ export class ShoppingCart {
         }
         const summary = new Summary;
         if(totalAmount !== 0) cart.appendChild(summary.render())
-
-        cartWrapper.append(cart)
-        return cartWrapper
+      
+        return cart  
+    }
+    rerender(){
+        const app = document.querySelector('.app_main') as Element;
+        app.innerHTML = '';
+        app.append(this.renderInnerBlock())
     }
 }

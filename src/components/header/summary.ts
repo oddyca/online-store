@@ -9,7 +9,7 @@ export class Summary {
     totalAmount: number
     constructor() {
         this.array = JSON.parse(localStorage.getItem('cart') || '[]');
-        this.totalSum = this.array.reduce((sum, current) => sum + FETCHED_DATA["products"][current.id - 1]["price"], 0);
+        this.totalSum = this.array.reduce((sum, current) => sum + FETCHED_DATA["products"][current.id - 1]["price"] * current.amount, 0);
         this.totalAmount = this.array.reduce((sum, current) => sum + current.amount, 0);
     }
     render() {
