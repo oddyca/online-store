@@ -99,16 +99,10 @@ export function QueryController(data:ToFilter, isChecked?: boolean) {
       url.searchParams.delete(attr);
     }
   }
-  
-  window.history.replaceState(
-    null,
-    '',
-    url // replace url in address bar with what we created
-  );
+  window.history.pushState({}, url.search, window.location.origin + url.search)
 }
 
 export function countFoundItems() {
   const renderedProductCards = document.querySelectorAll('.hide');
-  console.log(renderedProductCards)
   return renderedProductCards.length
 }

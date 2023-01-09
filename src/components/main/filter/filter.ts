@@ -55,9 +55,9 @@ export class CategoriesBlock {
       const checkBoxWrapper = document.createElement('div');
       const categoryCount = document.createElement('span');
 
-      checkBoxWrapper.classList.add('filter_option-wrapepr');
+      checkBoxWrapper.classList.add('filter_option-wrapper');
       checkBox.setAttribute('type', 'checkbox');
-      checkBox.setAttribute('name', 'category');
+      checkBox.setAttribute('name', 'categories');
       checkBox.setAttribute('id', `${this.categories[i]}`);
       checkBox.classList.add('category-filter');
 
@@ -66,12 +66,12 @@ export class CategoriesBlock {
         const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
         if ((<HTMLInputElement>e.target).checked) {
           (<string[]>checkedAttributes.categories).push(targetId);
-          QueryController(/* 'filter', */checkedAttributes, true);
+          QueryController(checkedAttributes, true);
         } else {
           checkedAttributes.categories = checkedAttributes.categories
             .slice(0, checkedAttributes.categories.indexOf(targetId))
             .concat(checkedAttributes.categories.slice(checkedAttributes.categories.indexOf(targetId) + 1));
-            QueryController(/* 'filter', */checkedAttributes, false);
+            QueryController(checkedAttributes, false);
         }
         filter(checkedAttributes);
         foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
@@ -129,30 +129,48 @@ export class BrandsBlock {
       const checkBoxWrapper = document.createElement('div');
       const brandCount = document.createElement('span');
 
-      checkBoxWrapper.classList.add('filter_option-wrapepr');
+      checkBoxWrapper.classList.add('filter_option-wrapper');
       checkBox.setAttribute('type', 'checkbox');
-      checkBox.setAttribute('name', 'category');
+      checkBox.setAttribute('name', 'brands');
       checkBox.setAttribute('id', `${this.brands[i]}`);
       checkBoxLabel.innerText = `${this.brands[i]}`;
       checkBoxLabel.setAttribute('for', `${this.brands[i]}`)
       brandCount.innerText = `${countBrands[this.brands[i]]}`;
       brandCount.classList.add('filter_option_count');
 
+      checkBox.addEventListener('change', (e) => {
+        const targetId = (<HTMLElement>e.target).id;
+        const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
+        if ((<HTMLInputElement>e.target).checked) {
+          checkedAttributes.brands.push(targetId);
+          QueryController(checkedAttributes);
+        } else {
+          checkedAttributes.brands = checkedAttributes.brands
+            .slice(0, checkedAttributes.brands.indexOf(targetId))
+            .concat(checkedAttributes.brands.slice(checkedAttributes.brands.indexOf(targetId) + 1));
+            QueryController(checkedAttributes);
+        }
+        filter(checkedAttributes);
+        foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
+      })
+
+      /*
       checkBox.onclick = (e) => {
         const targetId = (<HTMLElement>e.target).id;
         const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
         if ((<HTMLInputElement>e.target).checked) {
           checkedAttributes.brands.push(targetId);
-          QueryController(/*'filter', */ checkedAttributes, /*true*/);
+          QueryController(checkedAttributes);
         } else {
           checkedAttributes.brands = checkedAttributes.brands
             .slice(0, checkedAttributes.brands.indexOf(targetId))
             .concat(checkedAttributes.brands.slice(checkedAttributes.brands.indexOf(targetId) + 1));
-            QueryController(/* 'filter', */checkedAttributes, /*false*/);
+            QueryController(checkedAttributes);
         }
         filter(checkedAttributes);
         foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
       }
+      */
       
       checkBoxWrapper.append(checkBox);
       checkBoxWrapper.append(checkBoxLabel);

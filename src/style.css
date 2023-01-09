@@ -82,7 +82,7 @@
   flex-direction: column;
 }
 
-.filter_option-wrapepr {
+.filter_option-wrapper {
   display: flex;
   gap: .5rem;
 }
