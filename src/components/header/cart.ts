@@ -84,11 +84,14 @@ export class ShoppingCart {
         
                 } else {
                     productsList[i].amount -= 1;
+                    
                     localStorage.setItem('cart', JSON.stringify(productsList));
             
                     const amountIcon = document.querySelector('.summary-amount') as HTMLElement;
                     const priceIcon = document.querySelector('.summary-price') as HTMLElement;
+                    const promoSum = document.querySelector('.finish-price') as HTMLElement;
                     const sum = new Summary();
+                    if (promoSum.innerText.length !== 0) sum.renderPromoBlock();
                     quantity.innerText = `${amount}`;
                     price.innerText = `€${productPrice * amount}`;
                     amountIcon.innerText = `Products: ${totalAmount}`;
@@ -119,9 +122,11 @@ export class ShoppingCart {
                     const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
                     const amountIcon = document.querySelector('.summary-amount') as HTMLElement;
                     const priceIcon = document.querySelector('.summary-price') as HTMLElement;
+                    const promoSum = document.querySelector('.finish-price') as HTMLElement;
                     cartIcon.innerText = `${totalAmount}`;
                     amountIcon.innerText = `Products: ${totalAmount}`;
                     const sum = new Summary();
+                    if (promoSum.innerText.length !== 0) sum.renderPromoBlock();
                     sumIcon.innerText = `€${sum.totalSum}.00`;
                     priceIcon.innerText = `Total: €${sum.totalSum}`;
                 }
