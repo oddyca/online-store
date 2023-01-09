@@ -55,30 +55,30 @@ export function exportPath(route:string): HTMLDivElement {
 // }
 
 export function filter(allChecked: ToFilter) {
-  const renderedProductCards = document.querySelectorAll<HTMLElement>('.product-card')
+  const renderedProductCards = document.querySelectorAll<HTMLElement>('.card-frame')
   
   renderedProductCards.forEach((element) => {
-    const elementCategory = element.getElementsByTagName('div')[0].dataset['category'] as string;
-    const elementBrand = element.getElementsByTagName('div')[0].dataset['brand'] as string;
+    const elementCategory = element.dataset['category'] as string;
+    const elementBrand = element.dataset['brand'] as string;
     const cLength: number = allChecked.categories.length;
     const bLength: number = allChecked.brands.length
-    element.classList.add('hide')
+    element.parentElement!.classList.add('hide')
     if (cLength >= 1 && bLength === 0) {
       if (allChecked.categories.includes(elementCategory)) {
-        element.classList.remove('hide');
+        element.parentElement!.classList.remove('hide');
       }
     } else if (cLength === 0 && bLength >= 1) {
       if (allChecked.brands.includes(elementBrand)) {
-        element.classList.remove('hide');
+        element.parentElement!.classList.remove('hide');
       }
     } else if (cLength >= 1 && bLength >= 1) {
       if (allChecked.brands.includes(elementBrand) && allChecked.categories.includes(elementCategory)) {
-        element.classList.remove('hide');
+        element.parentElement!.classList.remove('hide');
       }
     } else if (cLength === 0 && bLength === 0) {
-      element.classList.remove('hide');
+      element.parentElement!.classList.remove('hide');
     } else {
-      element.classList.add('hide')
+      element.parentElement!.classList.add('hide')
     }
 
   });
