@@ -77,12 +77,12 @@ export class DescriptionBlock {
         button1.addEventListener('click', () => {
             arr = JSON.parse(localStorage.getItem('cart') || '[]');             // add product to cart
             if(isShopButtonClicked === false) {
-                arr.push({id: this.id, amount: 1});
+                arr.push({id: this.id, amount: 1, price: this.price});
                 isShopButtonClicked = true;
                 const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
                 const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
                 cartIcon.innerText = `${Number(cartIcon.innerText) + 1}`;
-                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) + FETCHED_DATA["products"][this.id - 1]["price"]}.00`;
+                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) + this.price}.00`;
                 button1.innerText = 'Drop from cart';
             } else {
                 let index = arr.findIndex((item:Products) => item.id === this.id);
@@ -90,7 +90,7 @@ export class DescriptionBlock {
                 const cartIcon = document.querySelector('.cart_counter') as HTMLElement;
                 const sumIcon = document.querySelector('.header_total-price') as HTMLElement;
                 cartIcon.innerText = `${Number(cartIcon.innerText) - 1}`;
-                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) - FETCHED_DATA["products"][this.id - 1]["price"]}.00`;
+                sumIcon.innerText = `€${Number(sumIcon.innerText.slice(1, sumIcon.innerText.length)) - this.price}.00`;
                 button1.innerText = 'Add to cart';
                 isShopButtonClicked = false;
             }
