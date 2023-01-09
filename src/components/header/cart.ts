@@ -70,7 +70,7 @@ export class ShoppingCart {
 
             const buttonMinus = document.createElement('button');
             buttonMinus.innerText = '-';
-            buttonMinus.addEventListener('click', () => {                  //decreasing amount of products
+            buttonMinus.addEventListener('click', () => {                 //decreasing amount of products
                 if(amount > 0){
                     amount -= 1;
                     this.totalAmount -=1;
@@ -83,13 +83,14 @@ export class ShoppingCart {
                     amountIcon.innerText = `Products: ${this.totalAmount}`;
                     sumIcon.innerText = `€${this.totalSum}.00`;
                     priceIcon.innerText = `Total: €${this.totalSum}`;
-                    if(amount === 0){
+                if(amount === 0){
                         this.productsList.splice(i, 1);
                         localStorage.setItem('cart', JSON.stringify(this.productsList));
                         cartItem.remove();
+                } if (this.totalAmount === 0) {
                         summary.remove();
                         cart.innerText = 'Cart is empty';
-                    } else {
+                } else {
                         this.productsList[i].amount -= 1;
                         localStorage.setItem('cart', JSON.stringify(this.productsList));
                         quantity.innerText = `${amount}`;
@@ -103,7 +104,7 @@ export class ShoppingCart {
             changeAmount.appendChild(quantity);
             const buttonPlus = document.createElement('button');
             buttonPlus.innerText = '+';
-            buttonPlus.addEventListener('click', () => {                       //increasing amount of product
+            buttonPlus.addEventListener('click', () => {                      //increasing amount of product
                 if(amount < FETCHED_DATA["products"][id - 1]["stock"]) {
                     amount += 1;
                     this.totalAmount += 1;
