@@ -19,6 +19,8 @@ export class ProductsList {
     for (let i = 0; i < allProducts.length; i++) {
       const productCardLink = document.createElement('a');
       const productCard = document.createElement('div');
+      productCard.classList.add('card-frame')
+
       const id = FETCHED_DATA['products'][i]["id"];
 
       productCardLink.classList.add('product-card');
@@ -26,8 +28,30 @@ export class ProductsList {
       productCard.dataset.brand = `${FETCHED_DATA['products'][i]['brand']}`;
       
       const productRoute = new Route(`/${id}`);
+      const productTitle = document.createElement('p');
+      productTitle.innerText = FETCHED_DATA['products'][i]["title"];
+      
+      const productCardPanel = document.createElement('div');
+      productCardPanel.classList.add('card_panel');
+      const productCPPrice = document.createElement('div');
+      const productCPButton = document.createElement('button');
+      productCPPrice.innerHTML = `€${FETCHED_DATA['products'][i]['price']}`;
+      productCPButton.innerHTML = 'ADD';
+      productCardPanel.append(productCPPrice);
+      productCardPanel.append(productCPButton);
+      
+      productCard.append(productTitle);
+      productCard.append(productCardPanel);
 
-      productCard.innerText = FETCHED_DATA['products'][i]["title"];
+
+
+      productCard.setAttribute('style',
+        `
+        background-image: url(${FETCHED_DATA['products'][i]["thumbnail"]});
+        background-size: cover;
+        background-repeat: no-repeat;
+        `
+      ) 
       productCardLink.setAttribute('href', `/${id}`);
       const replaceWith = new DescriptionBlock(id);
 
