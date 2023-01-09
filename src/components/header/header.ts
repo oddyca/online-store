@@ -1,20 +1,31 @@
 import { ShoppingCart } from "./cart";
 import { Route } from "../router/route";
 import { Summary } from "./summary";
-import { routesAndContent } from "../main/list/products"
+import { routesAndContent } from "../main/list/products";
+import { Main } from '../main/main'; 
 
 export class Header {
   render() {
     const headerElement: Element = document.createElement('header');
     headerElement.classList.add('header');
 
-    const logoElement = document.createElement('img');
-    logoElement.setAttribute('alt', 'store logo');
-    logoElement.setAttribute('src', '') // Image here
-
+    const logoElement = document.createElement('a');
+    const logoImg = document.createElement('img');
+    logoImg.setAttribute('alt', 'store logo');
+    logoImg.setAttribute('src', require('../../assets/logo.svg'));
+    logoElement.classList.add('logo');
+    logoElement.setAttribute('href', '#');
+    logoElement.onclick = () => {
+      const logoRoute = new Route(`/`);
+      logoRoute.createRoute();
+      const homeRender = new Main;
+      document.querySelector('.app_main')!.remove();
+      document.getElementById("app")?.insertBefore(homeRender.render(), document.querySelector('.footer'));
+    }
+    logoElement.append(logoImg)
     const summary = new Summary();
     
-    const priceCounter = document.createElement('div'); // IMPORT data from controller?
+    const priceCounter = document.createElement('div');
     priceCounter.classList.add('header_price-counter');
     priceCounter.innerHTML = 'Cart total: '
     const totalPrice = document.createElement('span');
@@ -22,7 +33,7 @@ export class Header {
     totalPrice.innerHTML = `€${summary.totalSum}.00`;
     priceCounter.append(totalPrice);
 
-    const cartElement = document.createElement('div'); // IMPORT from cart
+    const cartElement = document.createElement('div');
     cartElement.classList.add('header_cart');
 
     const productRoute = new Route(`/cart`);

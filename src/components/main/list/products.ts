@@ -49,12 +49,10 @@ export class ProductsList {
         background-size: cover;
         background-repeat: no-repeat;
         `
-      ) 
-      //productCardLink.setAttribute('href', `/${id}`);
+      );
+
       const replaceWith = new DescriptionBlock(id);
-
       routesAndContent[`/${id}`] = replaceWith;
-
       productCard.onclick = ():void => {
         //e.preventDefault();
         productRoute.createRoute();

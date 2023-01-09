@@ -30,6 +30,8 @@ export class ProductsHeader {
         count.innerText = `Found: ${this.amount}`;
         header.appendChild(count);
         const search = document.createElement('input'); // add search field
+        search.setAttribute('type', 'text');
+        search.classList.add('products-header_search');
         header.appendChild(search);
         const buttons = document.createElement('div');  // add display change buttons
         header.appendChild(buttons);

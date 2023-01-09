@@ -5,6 +5,7 @@ import { BadGetAway } from './components/404';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { ToFilter } from './components/main/filter/filter';
+import { QueryController } from './components/main/controller';
 import './style.css'
 
 const app = document.getElementById("app");
@@ -18,7 +19,6 @@ app?.append(footer.render());
 
 const footerElement = document.querySelector('.footer');
 const productRoutes = Object.keys(routesAndContent);
-
 
 window.onpopstate = () => { 
   const location = window.location.pathname;
@@ -76,3 +76,14 @@ window.addEventListener('DOMContentLoaded', () => {
     filter(checkedFromQuery)
   }
 });
+
+// const searchInput = (<HTMLInputElement>document.querySelector('.products-header_search')!)
+
+// searchInput.addEventListener('input', (e) => {
+//   const inputData:ToFilter = {}
+//   console.log('test')
+//   console.log(e)
+//   QueryController
+// })
+
+// console.log(performance.now())

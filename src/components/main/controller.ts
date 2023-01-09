@@ -22,7 +22,6 @@ export function exportPath(route:string): HTMLDivElement {
   let toRender!: HTMLDivElement;
   if (route.slice(1) !== 'cart') {
     const id:number = parseInt(route.slice(1));
-
     const description = new DescriptionBlock(id);
     toRender = description.render();
   } else {
@@ -94,7 +93,7 @@ export function QueryController(data:ToFilter) {
     // adds search param with the name of "attr" and value of all keys from data[attr] array
     // to url 
     // result -> https://localhost:8080/?categories=smartphones%2laptop ... ("+" = %2B)
-    url.searchParams.set(attr, data[attr].join('+'));
+    url.searchParams.set(attr, data[attr].join('+')); // BUT if search we do a different join
     if (data[attr].length === 0) {
       url.searchParams.delete(attr);
     }
