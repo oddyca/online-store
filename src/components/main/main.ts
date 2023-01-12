@@ -10,12 +10,12 @@ export class Main {
     const filterBlock = document.createElement('div');
     filterBlock.classList.add('app_main_filters');
 
-    const categoriesBlock = new CategoriesBlock;
-    const brandsBlock = new BrandsBlock;
-    const allProducts = new ProductsList;
+    const categoriesBlock = new CategoriesBlock();
+    const brandsBlock = new BrandsBlock();
+    const allProducts = new ProductsList();
     const products = document.createElement('div');
     products.classList.add('products');
-    const sortingList = new ProductsHeader;
+    const sortingList = new ProductsHeader();
 
     filterBlock.appendChild(categoriesBlock.render());
     filterBlock.appendChild(brandsBlock.render());

@@ -1,11 +1,16 @@
 export class BadGetAway {
   static render() {
     const errorPage = document.createElement('div');
-    const errorMessage = document.createElement('h1');
-    errorMessage.innerText = '404\nSorry, the page is not found';
+    const errorMessageFirst = document.createElement('h1');
+    errorMessageFirst.innerText = '404';
+    const errorMessageSecond = document.createElement('h1');
+    errorMessageSecond.innerHTML = 'Sorry, the page is not found'
 
     errorPage.classList.add('error-page');
-    errorPage.append(errorMessage);
+    errorMessageFirst.classList.add('error_first-line');
+    errorMessageSecond.classList.add('error_second-line');
+    errorPage.append(errorMessageFirst);
+    errorPage.append(errorMessageSecond);
 
     return errorPage;
   }

@@ -1,11 +1,10 @@
 import { Main } from './components/main/main';
 import { routesAndContent } from './components/main/list/products';
-import { exportPath, filter } from './components/main/controller';
+import { exportPath, filter, QueryController, checkedAttributes } from './components/main/controller';
 import { BadGetAway } from './components/404';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { ToFilter } from './components/main/filter/filter';
-import { QueryController } from './components/main/controller';
 import './style.css'
 
 const app = document.getElementById("app");
@@ -20,7 +19,7 @@ app?.append(footer.render());
 const footerElement = document.querySelector('.footer');
 const productRoutes = Object.keys(routesAndContent);
 
-window.onpopstate = () => { 
+window.onpopstate = () => {
   const location = window.location.pathname;
   const locationQueries = window.location.href
   document.querySelector('.app_main')!.remove();
@@ -64,6 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let checkedFromQuery: ToFilter ={
       'categories': [],
       'brands': [],
+      'search': [] // need to add this condition to filter()
     }
     const filterCheckBoxes = document.querySelectorAll('.filter_option-wrapper');
     filterCheckBoxes.forEach((x) => {
@@ -75,15 +75,15 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     filter(checkedFromQuery)
   }
+  const searchInput = (<HTMLInputElement>document.querySelector('.products-header_search')!);
+
+  searchInput.addEventListener('input', (e) => {
+    checkedAttributes['search'] = [(e.target as HTMLInputElement).value];
+    QueryController(checkedAttributes);
+    filter(checkedAttributes)// title, price, brand, category
+  })
 });
 
-// const searchInput = (<HTMLInputElement>document.querySelector('.products-header_search')!)
 
-// searchInput.addEventListener('input', (e) => {
-//   const inputData:ToFilter = {}
-//   console.log('test')
-//   console.log(e)
-//   QueryController
-// })
 
 // console.log(performance.now())

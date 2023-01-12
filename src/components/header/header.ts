@@ -14,14 +14,7 @@ export class Header {
     logoImg.setAttribute('alt', 'store logo');
     logoImg.setAttribute('src', require('../../assets/logo.svg'));
     logoElement.classList.add('logo');
-    logoElement.setAttribute('href', '#');
-    logoElement.onclick = () => {
-      const logoRoute = new Route(`/`);
-      logoRoute.createRoute();
-      const homeRender = new Main;
-      document.querySelector('.app_main')!.remove();
-      document.getElementById("app")?.insertBefore(homeRender.render(), document.querySelector('.footer'));
-    }
+    logoElement.setAttribute('href', '/');
     logoElement.append(logoImg)
     const summary = new Summary();
     

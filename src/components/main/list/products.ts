@@ -26,6 +26,8 @@ export class ProductsList {
       productCardLink.classList.add('product-card'); // card-frame
       productCard.dataset.category = `${FETCHED_DATA['products'][i]['category']}`;
       productCard.dataset.brand = `${FETCHED_DATA['products'][i]['brand']}`;
+      productCard.dataset.title = `${FETCHED_DATA['products'][i]['title']}`;
+      productCard.dataset.price = `${FETCHED_DATA['products'][i]['price']}`;
       
       const productRoute = new Route(`/${id}`);
       const productTitle = document.createElement('p');

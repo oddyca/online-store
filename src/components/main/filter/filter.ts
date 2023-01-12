@@ -1,6 +1,5 @@
 import { FETCHED_DATA } from "../../data/data";
-import { filter } from '../controller';
-import { countFoundItems, QueryController } from '../controller'
+import { filter, countFoundItems, QueryController, checkedAttributes } from '../controller';
 
 interface ProductsFilter { // interface (object) for counting all instances of each found category
   [cat: string]: number
@@ -16,10 +15,6 @@ export interface ToFilter {
 
 let countCategories: ProductsFilter = {} // create an object of type 'ProductsFilter' interface
 const allCategories: string[] = [];
-let checkedAttributes: ToFilter = {
-  'categories': [],
-  'brands': [],
-};
 
 for (let i = 0; i < FETCHED_DATA["products"].length; i++) { // push a name of a category of each product found in the DB
   allCategories.push(FETCHED_DATA["products"][i]["category"])
@@ -63,7 +58,7 @@ export class CategoriesBlock {
 
       checkBox.onclick = (e) => {
         const targetId = (<HTMLElement>e.target).id;
-        const foundCounter = document.querySelector('.products-header_found') as HTMLDivElement
+        
         if ((<HTMLInputElement>e.target).checked) {
           (<string[]>checkedAttributes.categories).push(targetId);
           QueryController(checkedAttributes);
@@ -74,7 +69,6 @@ export class CategoriesBlock {
             QueryController(checkedAttributes);
         }
         filter(checkedAttributes);
-        foundCounter.innerHTML = `Found: ${100 - countFoundItems()}`
       }
 
       checkBoxLabel.innerText = `${this.categories[i]}`;
