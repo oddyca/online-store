@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let checkedFromQuery: ToFilter ={
       'categories': [],
       'brands': [],
-      'search': [] // need to add this condition to filter()
+      'search': []
     }
     const filterCheckBoxes = document.querySelectorAll('.filter_option-wrapper');
     filterCheckBoxes.forEach((x) => {
@@ -75,12 +75,13 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     filter(checkedFromQuery)
   }
+  
+  // Active search
   const searchInput = (<HTMLInputElement>document.querySelector('.products-header_search')!);
-
   searchInput.addEventListener('input', (e) => {
     checkedAttributes['search'] = [(e.target as HTMLInputElement).value];
     QueryController(checkedAttributes);
-    filter(checkedAttributes)// title, price, brand, category
+    filter(checkedAttributes)
   })
 });
 

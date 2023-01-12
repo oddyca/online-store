@@ -34,16 +34,24 @@ export class ProductsHeader {
         search.classList.add('products-header_search');
         header.appendChild(search);
         const buttons = document.createElement('div');  // add display change buttons
+        buttons.classList.add('view-changer-wrapper');
         header.appendChild(buttons);
         const button1 = document.createElement('button'); 
-        button1.innerText = 'button 1';
-        button1.classList.add('button-list');
+        button1.setAttribute('alt', 'tiles');
+        const button1Icon = document.createElement('img');
+        button1Icon.setAttribute('src', require('../../../assets/tiles.svg'));
+        button1.classList.add('button-list', 'view-option');
+        button1.append(button1Icon);
         buttons.appendChild(button1);
         button1.addEventListener('click', () => {
             if (isList) this.changeDisplay();
         })
         const button2 = document.createElement('button');
-        button2.innerText = 'button 2';
+        button2.setAttribute('alt', 'list');
+        const button2Icon = document.createElement('img');
+        button2Icon.setAttribute('src', require('../../../assets/burger.svg'));
+        button2.classList.add('view-option')
+        button2.append(button2Icon);
         buttons.appendChild(button2);
         button2.addEventListener('click', () => {
             if (!isList) this.changeDisplay(); 
@@ -58,15 +66,17 @@ export class ProductsHeader {
             products?.classList.remove('display-list');
             for (let i = 0; i < itemsArr.length; i++) {
                 itemsArr[i].classList.remove('card-list');
+                itemsArr[i].children.item(2)?.setAttribute('style', 'display: none;'); 
             }
             buttons[0].classList.add('button-list');
             buttons[1].classList.remove('button-list');
             tableRoute.createRoute();
-            isList = false;
+            // isList = false;
         } else {
             products?.classList.add('display-list');
             for (let i = 0; i < itemsArr.length; i++) {
                 itemsArr[i].classList.add('card-list');
+                itemsArr[i].children.item(2)?.setAttribute('style', 'display: flex;');
             }
             buttons[1].classList.add('button-list');
             buttons[0].classList.remove('button-list');

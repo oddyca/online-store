@@ -67,6 +67,7 @@
   display: flex;
   gap: 16px;
   padding: 0 64px 0 64px;
+  position: relative;
 }
 
 .app_main_filters {
@@ -74,6 +75,8 @@
   flex-direction: column;
   gap: 12px;
   height: 520px;
+  position: sticky;
+  top: 1rem;
 }
 
 .filter_option {
@@ -126,13 +129,40 @@
   width: 100% !important;
 }
 
+.card-list .card-frame {
+  width: 25%;
+  height: 100%;
+}
+
+.card-list .card_panel {
+  left: 50%;
+  width: 50%;
+}
+
 .display-list {
   flex-direction: column; 
 }
 
+.view-changer-wrapper {
+  display: flex;
+  gap: .5rem;
+}
+
+.view-option {
+  padding: .5rem;
+  background-color:  white;
+  border: solid 1px black;
+  cursor: pointer;
+  transition: .2s;
+}
+
 .button-list {
-  background-color: grey;
-  color: white;
+  background-color:  black;
+  border: solid 1px black;
+}
+
+.button-list > img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(263deg) brightness(103%) contrast(102%);
 }
 
 .products-list {
@@ -144,7 +174,7 @@
 }
 
 .product-card {
-  display: flex;
+  display: flex; /* _________________ */
   width: 175px;
   height: 200px;
   padding: .5rem;
@@ -154,6 +184,19 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+}
+
+.full-description {
+  display: none;
+  color: black;
+  width: 100%;
+}
+
+.description-info {
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-frame {
